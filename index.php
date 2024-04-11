@@ -42,6 +42,7 @@ if (isset($_POST['file_upload'])) {
                 throw new Exception("Wrong file format");
             };
             finfo_close($finfo);
+            $success_msg = "File upload succesful";
         else : throw new Exception("Please upload a file");
         endif;
     } catch (Exception $e) {
@@ -71,7 +72,7 @@ if (isset($_POST['file_upload'])) {
                 <td><input type="submit" value="Submit" name="file_upload"></td>
             </tr>
         </table>
-        <p style="color:red"><?= $error_msg ?? "" ?></p>
+        <p style="color:<?= isset($success_msg) ? 'green' : 'red' ?>"><?= $error_msg ?? $success_msg ?? "" ?></p>
     </form>
 </body>
 
