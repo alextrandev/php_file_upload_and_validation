@@ -1,1 +1,3 @@
-# php_file_upload_and_validation
+# PHP file upload and validation
+
+A PHP practice for handle file input type securely
