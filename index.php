@@ -5,19 +5,27 @@ if (isset($_POST['file_upload'])) {
     $fileNameArr = explode('.', $fileName);
     $newFileName = "image." . $fileNameArr[1]; //change file name
 
-    echo nl2br(
-        "Filename: $fileName
-        Temp path: $tmpPath
-        Name: $fileNameArr[0]
-        Extension: $fileNameArr[1]"
-    );
+    // echo nl2br(
+    //     "Filename: $fileName
+    //     Temp path: $tmpPath
+    //     Name: $fileNameArr[0]
+    //     Extension: $fileNameArr[1]"
+    // ); // uploading file info
 
     // unsecure extension validation
-    if ($fileNameArr[1] == "jpg" || $fileNameArr[1] == "png" || $fileNameArr[1] == "gif") {
-        move_uploaded_file($tmpPath, "uploads/$newFileName"); //move the file to the uploads folder
+    // if ($fileNameArr[1] == "jpg" || $fileNameArr[1] == "png" || $fileNameArr[1] == "gif") {
+    //     move_uploaded_file($tmpPath, "uploads/$newFileName");
+    // } else {
+    //     echo 'Invalid file type';
+    // }
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $tmpPath);
+    if ($mime == 'image/jpeg' || 'image/png' || 'image/gif' || 'application/pdf') {
+        move_uploaded_file($tmpPath, "uploads/$newFileName");
     } else {
-        echo 'Invalid file type';
-    }
+        echo 'Invalid format';
+    };
 }
 ?>
 
